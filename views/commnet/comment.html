@@ -1,0 +1,33 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: 张安然
+ * @Date: 2019-11-17 18:51:53
+ * @LastEditors: 张安然
+ * @LastEditTime: 2019-11-18 10:06:22
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>留言板</title>
+</head>
+<body>
+    <h2>留言列表</h2>
+    <hr>
+    {{each comments}}
+        <div>
+            <li>
+                {{$value.name}} <br> 
+                {{$value.title}} <br>
+                {{$value.date}}
+            </li>
+            <hr>
+        </div>
+    {{/each}}
+
+    <a href="/editComment">添加评论</a>
+</body>
+</html>
