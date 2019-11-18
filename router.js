@@ -4,10 +4,11 @@
  * @Author: 张安然
  * @Date: 2019-11-18 12:42:46
  * @LastEditors: 张安然
- * @LastEditTime: 2019-11-18 14:26:21
+ * @LastEditTime: 2019-11-18 16:55:22
  */
 var express = require('express')
 var fs = require('fs')
+var studentUtil = require('./utils/students-util');
 
 //使用express 自自带的router
 var router = express.Router();
@@ -37,6 +38,8 @@ var comments = [
 
     },
 ]
+
+var students = [];
 
 router.get('/', (request, response) => {
     response.send('hello word use nodemon')
@@ -92,20 +95,62 @@ router.get('/comment', (request, response) => {
     });
 })
 
-router.get('/dashboard', (request, response) => {
-    var students = {};
-    // readfile 'utf-8' 可选参数
-    fs.readFile('./public/assets/student-db.json','utf-8',(err,data)=>{
+router.get('/students', (request, response) => {
+    // var students = {};
+    // // readfile 'utf-8' 可选参数
+    // fs.readFile('./public/assets/student-db.json', 'utf-8', (err, data) => {
+    //     if (err) {
+    //         return response.status(500).send("Service error ");
+    //     }
+
+    //     console.log(data);
+    //     response.render('dash-board/dash-board.html', {
+    //         students: JSON.parse(data).students
+    //     })
+    // })
+    studentUtil.findAll((err, students) => {
         if(err){
-            return  response.status(500).send("Service error ");
+            response.status(500).send(err);
         }
-        
-        console.log(data);
-        response.render('dash-board/dash-board.html',{
-            students : JSON.parse(data).students
+        console.log('findAll'+students);
+        response.render('students/students.html', {
+            students: students
         })
-    })
-   
+    });
+
 })
 
-module.exports=router;
+
+/**
+ * 学生系统的增删改查
+ */
+
+
+/**
+ * 跳转增加学生页面
+ */
+router.get('/students/new', (request, response) => {
+    response.render('student/student-new/student-new.html');
+})
+
+///students/new
+router.post('/students/new', (request, response) => {
+    // var student = request.body;
+    // //收到请求，存储数据，返回到列表界面
+    // students.unshift(student);
+    // response.render('students/students.html', {
+    //     students: students,
+    // });
+    var student = request.body;
+    studentUtil.save(student,(err)=>{
+        if(err){
+            response.status(500).send("添加失败"+err);
+        }
+        response.redirect('/students');
+        
+    })
+    
+})
+
+
+module.exports = router;
