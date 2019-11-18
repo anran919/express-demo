@@ -4,12 +4,12 @@
  * @Author: 张安然
  * @Date: 2019-11-17 18:03:49
  * @LastEditors: 张安然
- * @LastEditTime: 2019-11-18 13:49:18
+ * @LastEditTime: 2019-11-18 14:24:47
  */
 var express = require('express')
 var bodyParser = require('body-parser')
 
-var routes = require('./routes')
+var router = require('./router')
 var app = express()
 
 // parse application/x-www-form-urlencoded
@@ -24,7 +24,7 @@ app.use('/node_modules/', express.static('./node_modules/'));
 //使用art-template
 app.engine('html', require('express-art-template'));
 
-routes(app)
+app.use(router)
 app.listen(3000, () => {
     console.log('服务器启动')
 })
