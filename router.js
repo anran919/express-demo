@@ -4,7 +4,7 @@
  * @Author: 张安然
  * @Date: 2019-11-18 12:42:46
  * @LastEditors: 张安然
- * @LastEditTime: 2019-11-19 10:21:23
+ * @LastEditTime: 2019-11-19 11:05:21
  */
 var express = require('express')
 var fs = require('fs')
@@ -166,12 +166,6 @@ router.get('/students/update', (request, response) => {
     });
 });
 
-/**
- * 通过id删除
- */
-router.get('/students/delete', (request, response) => {
-    response.send('修改成功' + request.query.id);
-});
 
 
 /**
@@ -202,6 +196,19 @@ router.post('/students/edit', (request, response) => {
         response.redirect('/students')
     })
 });
+/**
+ * 编辑数据
+ */
+router.get('/students/delete', (request, response) => {
+    var id = request.query.id
+    studentUtil.deleteByid(id,(err)=>{
+        if(err){
+            response.status(500).send(err)
+        }
+        response.redirect('/students')
+    })
+});
+
 
 
 

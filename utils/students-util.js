@@ -4,7 +4,7 @@
  * @Author: 张安然
  * @Date: 2019-11-18 15:29:42
  * @LastEditors: 张安然
- * @LastEditTime: 2019-11-19 10:23:00
+ * @LastEditTime: 2019-11-19 11:07:21
  */
 
 var fs = require('fs');
@@ -74,9 +74,9 @@ exports.update = function (student, callback) {
             return callback(err)
         }
         var students = JSON.parse(data).students;
-
+        student.id = parseInt(student.id)
         var stu = students.find((item) => {
-            return item.id === parseInt(student.id);
+            return item.id === student.id;
         })
 
         //遍历拷贝对象
@@ -104,6 +104,27 @@ exports.add = function () {
 
 }
 
-exports.delete = function () {
+exports.deleteByid = function (id, callback) {
+    this.findByid(id, (err, student) => {
+        this.findAll((err, students) => {
+            if (err) {
+                callback(err)
+            }
+            var deleteId = students.findIndex((item) => {
+                return item.id === parseInt(id);
+            });
+            students.splice(deleteId, 1);
 
+            //将删除完的数据重新写入json
+            var fileData = JSON.stringify({
+                students: students
+            })
+            fs.writeFile(dbPath, fileData, (err) => {
+                if (err) {
+                    return callback(err)
+                }
+                callback(null)
+            })
+        })
+    })
 }
