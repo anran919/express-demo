@@ -4,7 +4,7 @@
  * @Author: 张安然
  * @Date: 2019-11-18 12:42:46
  * @LastEditors: 张安然
- * @LastEditTime: 2019-11-18 16:55:22
+ * @LastEditTime: 2019-11-19 10:21:23
  */
 var express = require('express')
 var fs = require('fs')
@@ -109,10 +109,10 @@ router.get('/students', (request, response) => {
     //     })
     // })
     studentUtil.findAll((err, students) => {
-        if(err){
+        if (err) {
             response.status(500).send(err);
         }
-        console.log('findAll'+students);
+        console.log('findAll' + students);
         response.render('students/students.html', {
             students: students
         })
@@ -142,15 +142,67 @@ router.post('/students/new', (request, response) => {
     //     students: students,
     // });
     var student = request.body;
-    studentUtil.save(student,(err)=>{
-        if(err){
-            response.status(500).send("添加失败"+err);
+    studentUtil.save(student, (err) => {
+        if (err) {
+            response.status(500).send("添加失败" + err);
         }
         response.redirect('/students');
-        
+
     })
-    
 })
+
+/**
+ * update
+ */
+router.get('/students/update', (request, response) => {
+    studentUtil.update({
+        "id": 1,
+        "name": '汤姆',
+    }, (err) => {
+        if (err) {
+            response.status(500).send("修改失败" + err);
+        }
+        response.send('修改成功');
+    });
+});
+
+/**
+ * 通过id删除
+ */
+router.get('/students/delete', (request, response) => {
+    response.send('修改成功' + request.query.id);
+});
+
+
+/**
+ * 跳转编辑页面
+ */
+router.get('/students/edit', (request, response) => {
+    var id = request.query.id;
+    studentUtil.findByid(id, (err, student) => {
+        if (err) {
+            response.status(500).send(err);
+        }
+        response.render('student/student-edit/student-edit.html', {
+            student: student
+        })
+
+    })
+});
+
+/**
+ * 编辑数据
+ */
+router.post('/students/edit', (request, response) => {
+    var student = request.body
+    studentUtil.update(student,(err,data)=>{
+        if(err){
+            response.status(500).send(err)
+        }
+        response.redirect('/students')
+    })
+});
+
 
 
 module.exports = router;
