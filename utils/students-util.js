@@ -4,7 +4,7 @@
  * @Author: 张安然
  * @Date: 2019-11-18 15:29:42
  * @LastEditors: 张安然
- * @LastEditTime: 2019-11-19 11:07:21
+ * @LastEditTime: 2019-11-19 11:26:58
  */
 
 var fs = require('fs');
@@ -97,10 +97,6 @@ exports.update = function (student, callback) {
         });
 
     })
-
-}
-exports.add = function () {
-
 
 }
 

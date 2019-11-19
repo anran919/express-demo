@@ -1,1 +1,25 @@
-{"students":[{"name":"新土","gender":"0","age":"5","hobbies":"88888","id":2},{"name":"小强","gender":"1","age":"26","hobbies":"写代码。打游戏，睡觉","id":3},{"name":"奥特曼","gender":"0","age":"111","hobbies":"111","id":4}]}
+{
+    "students": [
+        {
+            "name": "新土",
+            "gender": "0",
+            "age": "5",
+            "hobbies": "88888",
+            "id": 2
+        },
+        {
+            "name": "小强",
+            "gender": "1",
+            "age": "26",
+            "hobbies": "写代码。打游戏，睡觉",
+            "id": 3
+        },
+        {
+            "name": "奥特曼",
+            "gender": "0",
+            "age": "111",
+            "hobbies": "111",
+            "id": 4
+        }
+    ]
+}

@@ -4,7 +4,7 @@
  * @Author: 张安然
  * @Date: 2019-11-18 12:42:46
  * @LastEditors: 张安然
- * @LastEditTime: 2019-11-19 11:05:21
+ * @LastEditTime: 2019-11-19 19:53:59
  */
 var express = require('express')
 var fs = require('fs')
@@ -207,6 +207,12 @@ router.get('/students/delete', (request, response) => {
         }
         response.redirect('/students')
     })
+});
+
+///mongodb/simple
+
+router.get('/mongodb/simple', (request, response) => {
+    response.render('mongodb-simaple/mongodb-simaple.html');
 });
 
 

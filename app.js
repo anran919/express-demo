@@ -4,7 +4,7 @@
  * @Author: 张安然
  * @Date: 2019-11-17 18:03:49
  * @LastEditors: 张安然
- * @LastEditTime: 2019-11-18 14:24:47
+ * @LastEditTime: 2019-11-19 20:00:45
  */
 var express = require('express')
 var bodyParser = require('body-parser')
@@ -25,6 +25,7 @@ app.use('/node_modules/', express.static('./node_modules/'));
 app.engine('html', require('express-art-template'));
 
 app.use(router)
+
 app.listen(3000, () => {
     console.log('服务器启动')
 })
